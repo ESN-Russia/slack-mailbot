@@ -4,7 +4,8 @@
   "description": "Slack Mail Bot for ESN Russia",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js"
+    "start": "node index.js",
+    "imap_test": "node imap_test.js"
   },
   "repository": {
     "type": "git",
@@ -19,6 +20,7 @@
   "dependencies": {
     "@slack/client": "^3.14.2",
     "dotenv": "^4.0.0",
+    "mail-listener2": "^0.3.1",
     "path": "^0.12.7",
     "requests": "^0.2.2"
   }
