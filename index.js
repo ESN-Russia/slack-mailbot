@@ -25,7 +25,7 @@ rtm.on(CLIENT_EVENTS.RTM.RTM_CONNECTION_OPENED, () => {
     console.log('[SLACK] Connected');
     for(let i in db.data) {
         let user = db.data[i];
-        MailBox.StartNew(user.username, user.password, rtm);
+        MailBox.StartNew(user.username, user.password, user.chatId, rtm);
     }
 });
 
@@ -33,7 +33,7 @@ rtm.on(RTM_EVENTS.MESSAGE, async function handleRtmMessage(message) {
     console.log('[SLACK] Message:', message);
     let data = validateMessage(message.text);
     if (data === undefined) {
-        rtm.sendMessage('Bad use: _add_mail test@esnrussia.org password_', message.channel);
+        rtm.sendMessage('Try: _add_mail test@esnrussia.org password_', message.channel);
         return;
     }
 
@@ -47,10 +47,11 @@ rtm.on(RTM_EVENTS.MESSAGE, async function handleRtmMessage(message) {
     }
 
     db.addMailBox(params[1], params[2], message.channel);
-    MailBox.StartNew(params[1], params[2], rtm);
+    MailBox.StartNew(params[1], params[2], message.channel, rtm);
     rtm.sendMessage("*Yey!* :shipit:\n New mailbox added ", message.channel);
 });
 
-rtm.on('IMAP_new_mail', (mail, seqno, attributes) => {
-    rtm.sendMessage(mail.subject + " " + mail.from[0].address + " " + mail.from[0].name, 'D82DN636V');
+rtm.on('IMAP_new_mail', (mail, seqno, attributes, chatId) => {
+    rtm.sendMessage("*" + mail.subject + "*\n" +
+                    "From _"+ mail.from[0].name + "_, _<" + mail.from[0].address + ">_", chatId);
 });

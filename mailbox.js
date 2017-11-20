@@ -10,7 +10,7 @@ const sleep = (ms) => {
     });
 };
 
-module.exports.StartNew = (username, password, slack_emitter) => {
+module.exports.StartNew = (username, password, chatId, slack_emitter) => {
     let mailListener = new MailListener({
         username: username,
         password: password,
@@ -48,7 +48,7 @@ module.exports.StartNew = (username, password, slack_emitter) => {
         console.log("[IMAP]", username, "- new mail,", seqno);
         //console.log(username, seqno, stupid_db.getLastRead(username), stupid_db.getLastRead(username) < seqno);
         if (stupid_db.getLastRead(username) < seqno) {
-            slack_emitter.emit('IMAP_new_mail', mail, seqno, attributes);
+            slack_emitter.emit('IMAP_new_mail', mail, seqno, attributes, chatId);
             stupid_db.updateLastRead(username, seqno);
         }
     });
