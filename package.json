@@ -1,0 +1,25 @@
+{
+  "name": "slack-mailbot",
+  "version": "0.0.0",
+  "description": "Slack Mail Bot for ESN Russia",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ESN-Russia/slack-mailbot.git"
+  },
+  "author": "andresokol",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ESN-Russia/slack-mailbot/issues"
+  },
+  "homepage": "https://github.com/ESN-Russia/slack-mailbot#readme",
+  "dependencies": {
+    "@slack/client": "^3.14.2",
+    "dotenv": "^4.0.0",
+    "path": "^0.12.7",
+    "requests": "^0.2.2"
+  }
+}
